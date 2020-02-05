@@ -7,12 +7,14 @@ package kata4.main;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import kata4.model.Histogram;
 import kata4.model.Mail;
 import kata4.view.HistogramDisplay;
 import kata4.view.MailHistogramBuilder;
-import kata4.view.MailListReader;
+import kata4.view.MailListReaderBD;
 
 
 /**
@@ -27,7 +29,7 @@ public class Kata4 {
     }
 
     private String filename;
-    private List<Mail> mailList;
+    private ArrayList<Mail> mailList;
     private Histogram<String> histogram;
     private static HistogramDisplay histoDisplay;
 
@@ -37,11 +39,11 @@ public class Kata4 {
         output();
     }
 
-    private void input() throws IOException{
-        filename = "C:\\Users\\senyo\\Documents\\NetBeansProjects\\Kata4\\email.txt";
-        mailList = MailListReader.read(filename);
+    private void input() throws IOException, ClassNotFoundException, SQLException{
+        mailList = MailListReaderBD.read();
     }
 
+    
     private void process() throws Exception{
         histogram = MailHistogramBuilder.build(mailList);
     }
